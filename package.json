@@ -1,7 +1,7 @@
 {
   "name": "openapi-security-retriever",
   "version": "1.0.0",
-  "description": "Typescript package to retrieve security mechanism information from an operation and in compliance with an OpenApi specification. For 3.1.x and 3.0.x OpenAPI versions.",
+  "description": "Typescript package to retrieve security mechanism information from an operation in compliance with an OpenApi specification. For 3.1.x and 3.0.x OpenAPI versions.",
   "keywords": [
     "openapi 3.x",
     "typescript",
