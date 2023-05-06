@@ -1,0 +1,61 @@
+{
+  "name": "openapi-security-retriever",
+  "version": "1.0.0",
+  "description": "Typescript package to retrieve security mechanism information from an operation and in compliance with an OpenApi specification. For 3.1.x and 3.0.x OpenAPI versions.",
+  "keywords": [
+    "openapi 3.x",
+    "typescript",
+    "toolkit",
+    "security"
+  ],
+  "author": "ekoulemaneng <ekoulemaneng@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "src/index.ts",
+  "files": [
+    "README.md",
+    "package.json",
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start:dev": "nodemon ./src/index.ts --exec \"ts-node ./src/index.ts\"",
+    "test": "TS_NODE_PROJECT='test/tsconfig.json' mocha",
+    "test-watch": "TS_NODE_PROJECT='test/tsconfig.json' mocha --watch",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "openapi-objects-types": "^1.1.0",
+    "openapi-schema-retriever": "^1.0.0",
+    "random-string-builder": "^1.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "mocha": {
+    "require": "ts-node/register",
+    "extensions": [
+      "ts",
+      "tsx"
+    ],
+    "spec": [
+      "test/**/*.@(ts)"
+    ],
+    "watch-files": [
+      "test/**/*.*",
+      "src/**/*.*"
+    ],
+    "timeout": 1000000
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ekoulemaneng/openapi-security-retriever.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ekoulemaneng/openapi-security-retriever/issues"
+  },
+  "homepage": "https://github.com/ekoulemaneng/openapi-security-retriever#readme"
+}
