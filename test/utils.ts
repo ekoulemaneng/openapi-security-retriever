@@ -11,15 +11,12 @@ export const getPaths = (schema: OpenAPI): Array<string> => {
 export const getOperations = (schema: OpenAPI, path: string): Array<HttpMethod> => {
     if (!schema) throw errors.SchemaNotProvided
     if (!path) throw errors.PathNotProvided
-    const paths = getPaths(schema)
     const operations: Array<HttpMethod> = []
-    paths.forEach(path => {
-        if (!schema.paths) throw errors.NoPathInSchema
-        const pathItem = schema.paths[path]
-        if (!pathItem) return
-        for (const key in pathItem) {
-            if (['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'].includes(key.toLowerCase())) operations.push(key.toLowerCase() as HttpMethod)
-        }
-    })
+    if (!schema.paths) throw errors.NoPathInSchema
+    const pathItem = schema.paths[path]
+    if (!pathItem) return operations
+    for (const key in pathItem) {
+        if (['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'].includes(key.toLowerCase())) operations.push(key.toLowerCase() as HttpMethod)
+    }
     return operations
 }

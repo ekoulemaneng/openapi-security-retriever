@@ -1,5 +1,5 @@
 import * as errors from "./errors";
-import { GetAuthorizationCodeFlow, GetClientCredentialsFlow, GetFlowScopes, GetImplicitFlow, GetOperationSecurity, GetPasswordFlow, GetRootSecurity, OperationSecurity, Securities, SecurityScheme, SetOperationSecurity, SetSecurity } from "./types";
+import { GetAuthorizationCodeFlow, GetClientCredentialsFlow, GetFlowScopes, GetImplicitFlow, GetOperationSecurity, GetPasswordFlow, GetRootSecurity, OperationSecurity, OperationsExits, Securities, SecurityScheme, SetOperationSecurity, SetSecurity } from "./types";
 
 export const getRootSecurity: GetRootSecurity = (schema) => {
     if (!schema) throw errors.SchemaNotProvided
@@ -154,10 +154,24 @@ export const setSecurity: SetSecurity = (schema, requirement) => {
     return securities
 }
 
-export const setOperationSecurity: SetOperationSecurity = (schema, path, method) => {
+const operationsExits: OperationsExits = (schema, path, method) => {
     if (!schema) throw errors.SchemaNotProvided
     if (!path) throw errors.PathNotProvided
     if (!method) throw errors.OperationNotProvided
+    const paths = schema.paths
+    if (!paths) return false
+    const pathItem = paths[path]
+    if (!pathItem) return false
+    const operation = pathItem[method]
+    if (!operation) return false
+    return true
+}
+
+const setOperationSecurity: SetOperationSecurity = (schema, path, method) => {
+    if (!schema) throw errors.SchemaNotProvided
+    if (!path) throw errors.PathNotProvided
+    if (!method) throw errors.OperationNotProvided
+    if (!operationsExits(schema, path, method)) return null
     const security: OperationSecurity = {
         secured: false,
         optional: false,
@@ -169,3 +183,5 @@ export const setOperationSecurity: SetOperationSecurity = (schema, path, method)
     security.securities = operationSecurity.filter(item => Object.keys(item).length > 0).map (item => setSecurity(schema, item))
     return security
 }
+
+export default setOperationSecurity

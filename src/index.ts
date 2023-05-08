@@ -1,4 +1,4 @@
-import { setOperationSecurity } from './parser'
+import setOperationSecurity from './parser'
 import * as errors from './parser/errors'
 import { HttpMethod, OpenAPI } from './parser/types'
 

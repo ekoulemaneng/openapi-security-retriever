@@ -1,5 +1,6 @@
 import assert from 'assert'
 import schemaRetriever from 'openapi-schema-retriever'
+import generator from 'random-string-builder'
 import securityRetriever from '../src'
 import { getOperations, getPaths } from './utils'
 import * as schemas from './specs/objects'
@@ -58,6 +59,44 @@ for (let i = 1; i <= 7; i++) {
             // Setup
             const schema = await schemaRetriever(schemas[`schema${i}`])
             const paths = getPaths(schema)
+            context('when path not exists', () => {
+                it('returns null', () => {
+                    // Setup
+                    const _path = (() => {
+                        let result: string
+                        do {
+                            result = generator()
+                        }
+                        while (paths.includes(result))
+                        return result
+                    })()
+                    const _operation = ['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'][Math.floor(Math.random() * 8)]
+                    const expected = null
+                    // Exercise
+                    const actual = securityRetriever(schema, _path, _operation)
+                    // Verify
+                    assert.strictEqual(actual, expected)
+                })
+            })
+            context('when operation not exists', () => {
+                it('returns null', () => {
+                    // Setup
+                    const _path = paths[Math.floor(Math.random() * paths.length)]
+                    const _operation = (() => {
+                        let result: string
+                        do {
+                            result = ['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'][Math.floor(Math.random() * 8)]
+                        }
+                        while (getOperations(schema, _path).includes(result))
+                        return result
+                    })()
+                    const expected = null
+                    // Exercise
+                    const actual = securityRetriever(schema, _path, _operation)
+                    // Verify
+                    assert.strictEqual(actual, expected)
+                })
+            })
             paths.forEach(path => {
                 // Setup
                 const operations = getOperations(schema, path)
@@ -179,6 +218,44 @@ for (let i = 1; i <= 7; i++) {
             // Setup
             const schema = await schemaRetriever(`./specs/json/openapi${i}.json`, __dirname)
             const paths = getPaths(schema)
+            context('when path not exists', () => {
+                it('returns null', () => {
+                    // Setup
+                    const _path = (() => {
+                        let result: string
+                        do {
+                            result = generator()
+                        }
+                        while (paths.includes(result))
+                        return result
+                    })()
+                    const _operation = ['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'][Math.floor(Math.random() * 8)]
+                    const expected = null
+                    // Exercise
+                    const actual = securityRetriever(schema, _path, _operation)
+                    // Verify
+                    assert.strictEqual(actual, expected)
+                })
+            })
+            context('when operation not exists', () => {
+                it('returns null', () => {
+                    // Setup
+                    const _path = paths[Math.floor(Math.random() * paths.length)]
+                    const _operation = (() => {
+                        let result: string
+                        do {
+                            result = ['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'][Math.floor(Math.random() * 8)]
+                        }
+                        while (getOperations(schema, _path).includes(result))
+                        return result
+                    })()
+                    const expected = null
+                    // Exercise
+                    const actual = securityRetriever(schema, _path, _operation)
+                    // Verify
+                    assert.strictEqual(actual, expected)
+                })
+            })
             paths.forEach(path => {
                 // Setup
                 const operations = getOperations(schema, path)
@@ -300,6 +377,44 @@ for (let i = 1; i <= 7; i++) {
             // Setup
             const schema = await schemaRetriever(`./specs/yaml/openapi${i}.yaml`, __dirname)
             const paths = getPaths(schema)
+            context('when path not exists', () => {
+                it('returns null', () => {
+                    // Setup
+                    const _path = (() => {
+                        let result: string
+                        do {
+                            result = generator()
+                        }
+                        while (paths.includes(result))
+                        return result
+                    })()
+                    const _operation = ['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'][Math.floor(Math.random() * 8)]
+                    const expected = null
+                    // Exercise
+                    const actual = securityRetriever(schema, _path, _operation)
+                    // Verify
+                    assert.strictEqual(actual, expected)
+                })
+            })
+            context('when operation not exists', () => {
+                it('returns null', () => {
+                    // Setup
+                    const _path = paths[Math.floor(Math.random() * paths.length)]
+                    const _operation = (() => {
+                        let result: string
+                        do {
+                            result = ['get', 'put', 'post', 'delete', 'head', 'options', 'patch', 'trace'][Math.floor(Math.random() * 8)]
+                        }
+                        while (getOperations(schema, _path).includes(result))
+                        return result
+                    })()
+                    const expected = null
+                    // Exercise
+                    const actual = securityRetriever(schema, _path, _operation)
+                    // Verify
+                    assert.strictEqual(actual, expected)
+                })
+            })
             paths.forEach(path => {
                 // Setup
                 const operations = getOperations(schema, path)

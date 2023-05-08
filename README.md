@@ -1,6 +1,6 @@
 # OpenAPI Security Retriever
 
-Typescript package to retrieve security mechanism information from an operation and in compliance with an OpenApi specification. For 3.1.x and 3.0.x OpenAPI versions.
+Typescript package to retrieve security mechanism informations from an operation in compliance with an OpenApi specification. For 3.1.x and 3.0.x OpenAPI versions.
 
 ## Installation
 ```typescript
@@ -33,7 +33,8 @@ const main = async () => {
     */
     const security = securityRetriever(schema, '/products', 'get')
 
-    console.log(security) // => { secured: true, optional: false, securities: [ JwtOauth: { type: 'http', scheme: 'bearer', scopes: ['admin'] } ] }
+    console.log(security) // => { secured: true, optional: false, securities: [ JwtOauth: { type: 'http', scheme: 'bearer', scopes: ['admin'] } ] } | null 
+                          // 'null' if operation is not found in the OpenAPI specification
 }
 
 main()

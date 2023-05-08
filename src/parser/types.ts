@@ -97,5 +97,7 @@ export type GetFlowScopes = (flows: OAuthFlows) => Array<string>
 
 export type SetSecurity = (schema: OpenAPI, requirement: SecurityRequirement) => Securities
 
-export type SetOperationSecurity = (schema: OpenAPI, path: string, operation: HttpMethod) => OperationSecurity
+export type OperationsExits = (schema: OpenAPI, path: string, operation: HttpMethod) => boolean
+
+export type SetOperationSecurity = (schema: OpenAPI, path: string, operation: HttpMethod) => OperationSecurity | null
 
